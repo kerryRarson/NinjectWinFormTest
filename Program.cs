@@ -1,4 +1,7 @@
-﻿using System;
+﻿//Good article on DI
+//http://visualstudiomagazine.com/articles/2014/05/01/how-to-refactor-for-dependency-injection.aspx?utm_source=dlvr.it&utm_medium=twitter
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
