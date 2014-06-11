@@ -8,6 +8,11 @@ namespace ninjectTest
         {
             Bind<IMailSender>().To<MailSender>();
             Bind<IStateService>().To<StateService>();
+
+            //bind stores
+            Bind<Store.IStore>().To<Store.Montana>();
+            Bind<Store.ICaliStore>().To<Store.California>();
+
         }
     }
 }

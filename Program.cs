@@ -1,6 +1,12 @@
 ﻿//Good article on DI
 //http://visualstudiomagazine.com/articles/2014/05/01/how-to-refactor-for-dependency-injection.aspx?utm_source=dlvr.it&utm_medium=twitter
 
+//try this for binding <Montana>
+//http://stefanoricciardi.com/2011/01/21/ninject-mini-tutorial-part-1/
+
+//use this to bind to Cali & MT stores
+//http://www.codeproject.com/Tips/678129/No-more-factories-in-Csharp
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +40,15 @@ namespace ninjectTest
             kernel.Load( Assembly.GetExecutingAssembly() );
             IMailSender mailSender = kernel.Get<IMailSender>();
             IStateService lookupContext = kernel.Get<IStateService>();
+            Store.IStore MTStore =kernel.Get<Store.IStore>();
 
-            FormHandler formHandler = new FormHandler( mailSender, lookupContext );
+            FormHandler formHandler = new FormHandler( mailSender, lookupContext, MTStore );
             formHandler.Handle( "me@test.com" );
+
+            Console.WriteLine();
+            Store.ICaliStore CAStore = kernel.Get<Store.ICaliStore>();
+            formHandler = new FormHandler(mailSender, lookupContext, CAStore);
+            formHandler.Handle("CA@storeTest.com");
 
             Console.ReadLine();
         }
