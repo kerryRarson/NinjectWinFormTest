@@ -10,7 +10,7 @@ namespace ninjectTest
             Bind<IStateService>().To<StateService>();
 
             //bind stores
-            Bind<Store.IStore>().To<Store.Montana>();
+            Bind<Store.IMTStore>().To<Store.Montana>();
             Bind<Store.ICaliStore>().To<Store.California>();
 
         }

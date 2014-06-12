@@ -13,5 +13,6 @@ namespace ninjectTest.Store
         bool IsStoreOpen(DateTime dateTime);
     }
 
+    public interface IMTStore : IStore { }
     public interface ICaliStore : IStore { }
 }

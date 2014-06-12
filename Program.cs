@@ -40,7 +40,7 @@ namespace ninjectTest
             kernel.Load( Assembly.GetExecutingAssembly() );
             IMailSender mailSender = kernel.Get<IMailSender>();
             IStateService lookupContext = kernel.Get<IStateService>();
-            Store.IStore MTStore =kernel.Get<Store.IStore>();
+            Store.IMTStore MTStore =kernel.Get<Store.IMTStore>();
 
             FormHandler formHandler = new FormHandler( mailSender, lookupContext, MTStore );
             formHandler.Handle( "me@test.com" );
