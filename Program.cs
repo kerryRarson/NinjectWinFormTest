@@ -14,7 +14,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Ninject;
-using Ninject.Extensions.Factory;
+//using Ninject.Extensions.Factory;
 
 
 namespace ninjectTest
@@ -82,6 +82,8 @@ namespace ninjectTest
             FormHandler formHandler = new FormHandler( mailSender, lookupContext, mt );
             formHandler.Handle("me@test.com");
 
+            Console.WriteLine();
+            Console.WriteLine(string.Format("getting {0} from the ninject kernel", Store.Stores.CA));
             //TODO #3 get the bound object from the kernel & use it
             var ca = kernel.Get<Store.IStore>(Store.Stores.CA);
             Console.WriteLine(string.Format("{0} - {1}", ca.StoreId, ca.Name));
