@@ -14,6 +14,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Ninject;
+using Ninject.Extensions.Factory;
+
 
 namespace ninjectTest
 {
@@ -40,15 +42,37 @@ namespace ninjectTest
             kernel.Load( Assembly.GetExecutingAssembly() );
             IMailSender mailSender = kernel.Get<IMailSender>();
             IStateService lookupContext = kernel.Get<IStateService>();
-            Store.IMTStore MTStore =kernel.Get<Store.IMTStore>();
 
-            FormHandler formHandler = new FormHandler( mailSender, lookupContext, MTStore );
-            formHandler.Handle( "me@test.com" );
 
-            Console.WriteLine();
-            Store.ICaliStore CAStore = kernel.Get<Store.ICaliStore>();
-            formHandler = new FormHandler(mailSender, lookupContext, CAStore);
-            formHandler.Handle("CA@storeTest.com");
+
+            #region IStore v1 implementation
+            ////Change to a factory
+            ////http://stackoverflow.com/questions/13057142/parameterized-factories-using-ninject
+
+            //Store.IMTStore MTStore =kernel.Get<Store.IMTStore>();
+
+            //FormHandler formHandler = new FormHandler( mailSender, lookupContext, MTStore );
+            //formHandler.Handle( "me@test.com" );
+
+            //Console.WriteLine();
+            //Store.ICaliStore CAStore = kernel.Get<Store.ICaliStore>();
+            //formHandler = new FormHandler(mailSender, lookupContext, CAStore);
+            //formHandler.Handle("CA@storeTest.com");
+            #endregion
+
+            #region IStore v2 using Factory pattern
+            kernel.Bind<Store.IStoreFactory>().ToFactory();
+            var storeFactory = kernel.Get<Store.IStoreFactory>();
+
+            var mtStore = storeFactory.Create<Store.Montana>("MT");
+            FormHandler formHandler = new FormHandler(mailSender, lookupContext, mtStore);
+            formHandler.Handle("me@test.com");
+
+            var caliStore = storeFactory.Create<Store.California>("CA");
+            formHandler = new FormHandler(mailSender, lookupContext, caliStore);
+            formHandler.Handle("me2@test.com");
+
+            #endregion
 
             Console.ReadLine();
         }

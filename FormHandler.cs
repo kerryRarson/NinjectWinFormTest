@@ -27,6 +27,7 @@ namespace ninjectTest
             Console.WriteLine( _lookupContext.ToString() );
 
             Console.WriteLine();
+            Console.WriteLine(string.Format("using store '{0}'", _store.Name));
             Console.WriteLine("Is the store open? - " + _store.IsStoreOpen(DateTime.Now));
             Console.WriteLine("Is the store open on Sunday? - " + _store.IsStoreOpen(DateTime.Parse("5/4/2014")));
         }

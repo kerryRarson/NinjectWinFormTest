@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ninjectTest.Store
 {
@@ -15,4 +12,9 @@ namespace ninjectTest.Store
 
     public interface IMTStore : IStore { }
     public interface ICaliStore : IStore { }
+
+    public interface IStoreFactory
+    {
+        T Create<T>(string name) where T : IStore;
+    }
 }
