@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ninjectTest.Store
 {
-    public class California : ICaliStore
+    public class California : IStore
     {
         private long _storeID = 9999;
         public long StoreId { get { return _storeID; } set { _storeID = value; } }

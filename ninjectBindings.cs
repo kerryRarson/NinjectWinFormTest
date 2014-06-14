@@ -15,6 +15,14 @@ namespace ninjectTest
             //Bind<Store.ICaliStore>().To<Store.California>();
             #endregion
 
+            #region IStore v3 bind to IStore based on name
+
+            //TODO #2 bind the new task name to the concrete implementation
+            Bind<Store.IStore>().To<Store.Montana>().Named(Store.Stores.MT);
+            Bind<Store.IStore>().To<Store.California>().Named(Store.Stores.CA);
+
+            #endregion
+
         }
     }
 }

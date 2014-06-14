@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ninjectTest.Store
 {
-    public class Montana : IMTStore
+    public class Montana : IStore
 
     {
         public long StoreId

@@ -61,20 +61,33 @@ namespace ninjectTest
             #endregion
 
             #region IStore v2 using Factory pattern
-            kernel.Bind<Store.IStoreFactory>().ToFactory();
-            var storeFactory = kernel.Get<Store.IStoreFactory>();
+            //kernel.Bind<Store.IStoreFactory>().ToFactory();
+            //var storeFactory = kernel.Get<Store.IStoreFactory>();
 
-            var mtStore = storeFactory.Create<Store.Montana>("MT");
-            FormHandler formHandler = new FormHandler(mailSender, lookupContext, mtStore);
-            formHandler.Handle("me@test.com");
+            //var mtStore = storeFactory.Create<Store.Montana>("MT");
+            //FormHandler formHandler = new FormHandler(mailSender, lookupContext, mtStore);
+            //formHandler.Handle("me@test.com");
 
-            var caliStore = storeFactory.Create<Store.California>("CA");
-            formHandler = new FormHandler(mailSender, lookupContext, caliStore);
-            formHandler.Handle("me2@test.com");
+            //var caliStore = storeFactory.Create<Store.California>("CA");
+            //formHandler = new FormHandler(mailSender, lookupContext, caliStore);
+            //formHandler.Handle("me2@test.com");
 
             #endregion
 
-            Console.ReadLine();
+            #region IStore v3 IStore objects bound by Name
+            
+            string valueReadFromDB = Store.Stores.MT;
+            var mt = kernel.Get<Store.IStore>(valueReadFromDB);
+            Console.WriteLine(string.Format("{0} - {1}",mt.StoreId,mt.Name));
+            FormHandler formHandler = new FormHandler( mailSender, lookupContext, mt );
+            formHandler.Handle("me@test.com");
+
+            //TODO #3 get the bound object from the kernel & use it
+            var ca = kernel.Get<Store.IStore>(Store.Stores.CA);
+            Console.WriteLine(string.Format("{0} - {1}", ca.StoreId, ca.Name));
+
+            #endregion
         }
     }
+    
 }
